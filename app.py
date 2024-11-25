@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 import sqlite3
+from tabulate import tabulate
 
 # Step 1: Scrape the links
 req = requests.get("https://www.geeksforgeeks.org/dsa-tutorial-learn-data-structures-and-algorithms/")
@@ -31,12 +32,13 @@ for link in links:
 conn.commit()
 
 # Step 5: Fetch and display the contents of the table
-print("\n--- Saved Links in Database ---")
 cursor.execute("SELECT * FROM links")
 rows = cursor.fetchall()
 
-for row in rows:
-    print(row)
+# Display the table using tabulate
+print("\n--- Saved Links in Database ---")
+headers = ["ID", "URL"]  # Table headers
+print(tabulate(rows, headers, tablefmt="fancy_grid"))
 
 # Step 6: Close the connection
 conn.close()
