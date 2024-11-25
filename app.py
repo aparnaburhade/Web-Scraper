@@ -1,8 +1,13 @@
 import requests
 from bs4 import BeautifulSoup
 
-req = requests.get("https://www.geeksforgeeks.org/")
+req = requests.get("https://www.geeksforgeeks.org/dsa-tutorial-learn-data-structures-and-algorithms/")
 
-soup = BeautifulSoup(req.content, "html.parser")
-res = soup.title
-print(res.get_text())
+#Parsing the HTML
+soup = BeautifulSoup(req.content, 'html.parser')
+
+
+s = soup.find('div')
+content = s.find_all('href')
+
+print(content)
