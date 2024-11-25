@@ -27,8 +27,16 @@ for link in links:
     if href:  # Check if the href exists
         cursor.execute("INSERT INTO links (url) VALUES (?)", (href,))
 
-# Commit the transaction and close the connection
+# Commit the transaction
 conn.commit()
-conn.close()
 
-print(f"{len(links)} links have been saved to the database.")
+# Step 5: Fetch and display the contents of the table
+print("\n--- Saved Links in Database ---")
+cursor.execute("SELECT * FROM links")
+rows = cursor.fetchall()
+
+for row in rows:
+    print(row)
+
+# Step 6: Close the connection
+conn.close()
